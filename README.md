@@ -1,3 +1,10 @@
+# Example
+
+## .CSV file
+![CSV_example](image.png)
+
+## Output
+```json
 {
   "1": {
     "Name": "Vladislav",
@@ -21,3 +28,4 @@
     "Has Car": false
   }
 }
+```
