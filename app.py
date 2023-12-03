@@ -1,8 +1,7 @@
-import csv
 import json
 
-CSV_FILENAME = "test_data.csv"
-OUTPUT_FILENAME = "output.json"
+csv_filename = input(".csv name: ")
+output_filename = input("output file name: ")
 
 
 def convert_to_proper_types(value):
@@ -25,7 +24,7 @@ def convert_to_proper_types(value):
             return True
         elif value.lower() == "false":
             return False
-        
+
     return value
 
 
@@ -35,10 +34,13 @@ def read_csv(file_path: str) -> (list, list):
     returns the head and body
     """
     with open(file_path, "r", encoding="utf-8-sig", newline="") as file:
-        reader = csv.reader(file, delimiter=";")
+        lines = file.readlines()
 
-        header = next(reader)
-        data = [[convert_to_proper_types(cell) for cell in row] for row in reader]
+    header = lines[0].strip().split(";")
+    data = [
+        [convert_to_proper_types(cell) for cell in row.strip().split(";")]
+        for row in lines[1:]
+    ]
 
     return header, data
 
@@ -48,24 +50,25 @@ def make_json(header: list, body: list) -> dict:
     This function returns a dictionary based on our data (head, body)
     """
     json_data = {}
-    
+
     for idx, row in enumerate(body, start=1):
         entry = {}
         for key, value in zip(header, row):
             entry[key.strip()] = value
         json_data[str(idx)] = entry
-    
+
     return json_data
 
 
 def main() -> None:
-    header, body_data = read_csv(CSV_FILENAME)
+    header, body_data = read_csv(csv_filename)
     json_data = make_json(header, body_data)
     json_output = json.dumps(json_data, indent=2)
 
-    with open(OUTPUT_FILENAME, "w", encoding="UTF-8") as output_file:
+    with open(output_filename, "w", encoding="UTF-8") as output_file:
         output_file.write(json_output)
     print("Done!")
+
 
 if __name__ == "__main__":
     main()
