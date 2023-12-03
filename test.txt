@@ -1,0 +1,4 @@
+{"1":{"Name":"Vladislav","Surname":"Kovalskyi","Age":19,"Balance":242123,"HasCar":True}
+,"2":{"Name":"Artem","Surname":"Peev","Age":18,"Balance":25216.52,"HasCar":False}
+,"3":{"Name":"Vika","Surname":"Kalmykova","Age":17,"Balance":53467.5,"HasCar":False}
+}
